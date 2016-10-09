@@ -22,6 +22,8 @@
 //! It implements some conversion traits for convenience.
 
 extern crate shader_version;
+extern crate glutin;
+use glutin::WindowID;
 
 use std::convert::From;
 use shader_version::OpenGL;
@@ -303,6 +305,7 @@ pub struct WindowSettings {
     resizable: bool,
     decorated: bool,
     controllers: bool,
+    parent: Option<WindowID>,
 }
 
 impl WindowSettings {
@@ -331,6 +334,7 @@ impl WindowSettings {
             resizable: true,
             decorated: true,
             controllers: true,
+            parent: None,
         }
     }
 
@@ -643,6 +647,22 @@ impl WindowSettings {
     /// so that it can be used in method chaining.
     pub fn controllers(mut self, value: bool) -> Self {
         self.set_controllers(value);
+        self
+    }
+
+    /// Gets whether built window should be created as a child to the given parent window.
+    pub fn get_parent(&self) -> Option<WindowID> { self.parent.clone() }
+
+    /// Sets whether built window should be created as a child to the given parent window.
+    pub fn set_parent(&mut self, parent: Option<WindowID>) { self.parent = parent; }
+
+    /// Sets whether built window should be created as a child to the given parent window.
+    ///
+    /// This method moves the current window data,
+    /// unlike [`set_controllers()`](#method.set_controllers),
+    /// so that it can be used in method chaining.
+    pub fn parent(mut self, parent: Option<WindowID>) -> Self {
+        self.set_parent(parent);
         self
     }
 }
