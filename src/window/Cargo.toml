@@ -25,4 +25,5 @@ version = "0.14.0"
 [dependencies]
 shader_version = "0.2.1"
 #libc = "0.2.16"
-glutin = {path = 'D:\projects\forks\glutin'}
+#glutin = {path = 'D:\projects\forks\glutin'}
+glutin = {git = 'https://github.com/Boscop/glutin'}
